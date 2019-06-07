@@ -12,35 +12,14 @@ data = open('data.csv', 'r'). readlines()           #Lee el archivo
 data = [row[0:-1] for row in data]                  #Elimina los retornos del carro   
 data = [x.replace('\t', ',') for x in data]         #Reemplaza los separador "\t" por ","
 data = [row.split(',') for row in data]             #Separa los elementos de las listas por ","
-data= [[row[0], row[1]] for row in data]            #Selecciona únicamente las dos primeras columnas del archivo
-data= sorted ([row for row in data])                #Organiza la información ascendentemente  
+dic_data = {'A':0,'B':0,'C':0,'D':0,'E':0}
 
-subtotal=[]                                         #Se crea lalista vacía "subtotal"
-sumaA=0                                             #Se crea una variable con valor inicial 0 para almacenar el valor de la suma de cada resgitro
-sumaB=0
-sumaC=0
-sumaD=0
-sumaE=0
-for i in range(len(data)):                          #Crea el ciclo for para que recorra la extensión de la nueva lista data de 2 columnas
-    if(data[i][0]=='A'):                            #Busca que la letra de la priemra columna sea "A"
-        sumaA=sumaA+int(data[i][1])                 #Almacena en la variable sumaA el acumulado de los valores sumados de los resgistros con letra A
-    elif(data[i][0]=='B'):                          #Busca que la letra de la priemra columna sea "B"
-        sumaB=sumaB+int(data[i][1])                 #Almacena en la variable sumaB el acumulado de los valores sumados de los resgistros con letra B
-    elif(data[i][0]=='C'):                          #Busca que la letra de la priemra columna sea "C"
-        sumaC=sumaC+int(data[i][1])                 #Almacena en la variable sumaC el acumulado de los valores sumados de los resgistros con letra C
-    elif(data[i][0]=='D'):                          #Busca que la letra de la priemra columna sea "D"
-        sumaD=sumaD+int(data[i][1])                 #Almacena en la variable sumaD el acumulado de los valores sumados de los resgistros con letra D
-    elif(data[i][0]=='E'):                          #Busca que la letra de la priemra columna sea "E"
-        sumaE=sumaE+int(data[i][1])                 #Almacena en la variable sumaE el acumulado de los valores sumados de los resgistros con letra E
-subtotal.append(['A',sumaA])                        #Adiciona a la lista subtotal el cálculo realizado
-subtotal.append(['B',sumaB])
-subtotal.append(['C',sumaC])
-subtotal.append(['D',sumaD])
-subtotal.append(['E',sumaE])
+for i in data:
+	label=i[0]
+	dic_data[label] += int(i[1])
 
-result = dict(subtotal)                             #Se transforma la lista "subtotal" en el diccionario "result"
-
-for letra,suma in result.items():                   #Se indica que las llaves se llamarán "letra" y los valores "suma"
-    print(str(letra)+','+str(suma))                 #Imprime con el formato solicitado
-
-
+result=['A','B','C','D','E']
+for i in range (len(result)):
+    label=result [i]
+    value=dic_data[label]
+    print ('%s,%s' %(str(label),str(value)))
