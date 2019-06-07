@@ -13,3 +13,33 @@
 ## iii,2,7
 ## jjj,2,5
 ##
+data = open('data.csv', 'r'). readlines()           #Lee el archivo
+data = [row[0:-1] for row in data]                  #Elimina los retornos del carro   
+data = [x.replace('\t', ',') for x in data]         #Reemplaza los separador "\t" por ","
+data = [row.split(',') for row in data]             #Separa los elementos de las listas por ","
+arreglo=[]
+data_dic={}
+
+for i in data:
+    sentinela=False
+    for j in i:
+        if ':' in j and sentinela==False:
+            sentinela=True
+            elemento= j.split(':') 
+            arreglo.append(elemento)
+
+for i in arreglo:
+    label = i[0]
+    value = i[1]
+    if label not in data_dic:
+        data_dic[label]=[value]
+    else: 
+        data_dic[label].append(value)
+        
+result=sorted(data_dic)
+
+for i in result:
+    elemento=data_dic[i]
+    v_max= max(elemento)
+    v_min= min(elemento)
+    print ('%s,%s,%s' %(str(i),str(v_max),str(v_min)))  
